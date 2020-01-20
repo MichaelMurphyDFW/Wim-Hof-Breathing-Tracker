@@ -19,63 +19,58 @@ print(os.path.abspath("projects/wim_hof/processed_images.txt"))
 print(os.getcwd())
 print(original_dir)
 
-sessions = {}
-
 while True:
+    sessions = {}
     sleep(5)
-    # print("Pausing for 5 seconds...")
 
-    # with open ("projects/wim_hof/processed_images.txt", "r") as processed:
-    with open ("processed_images.txt", "r") as processed:
+    with open ("sessions.json") as f:
+        try:
+            processed_files = json.load(f)
+        except:
+            processed_files = {}
 
-        processed_files = processed.read().split("\n")
-        num_recorded_files = len(processed_files)-1
-        # print("num recorded files:",num_recorded_files)
-        # print("files ins folder:",len(os.listdir(original_dir)))
+        completed_filenames = []
+        for session in processed_files:
+            completed_filenames.append(processed_files[session]['filename'])
 
-        if num_recorded_files != len(os.listdir(original_dir)):
 
-            # with open("projects/wim_hof/processed_images.txt", "a+") as processed:
-            with open("processed_images.txt", "a+") as processed:
+        if len(completed_filenames) < len(os.listdir(original_dir)):
 
-                for image in os.listdir(original_dir):
-                    if (image.endswith(".png") or image.endswith(".PNG")) and image not in processed_files:
-                        cv_image = Image.open(f"{original_dir}/{image}")
-                        (w,h) = cv_image.size
-                        cropped = cv_image.crop((900,1450,w,2012))
-                        # cropped.show()
+            for image in os.listdir(original_dir):
+                if (image.endswith(".png") or image.endswith(".PNG")) and image not in completed_filenames:
+                    cv_image = Image.open(f"{original_dir}/{image}")
+                    (w,h) = cv_image.size
+                    cropped = cv_image.crop((900,1450,w,2012))
+                    # cropped.show()
 
-                        processed.write(f"{image}\n")
+                    img_date = image.split(",")[0][6:]
 
-                        img_date = image.split(",")[0][6:]
-                        text = pytesseract.image_to_string(cropped,lang="SF-numsonly")
+                    text = pytesseract.image_to_string(cropped,lang="SF-numsonly")
+                    parsed = [text for text in text.split("\n") if ":" in text]
 
-                        parsed = [text for text in text.split("\n") if ":" in text]
-                        sessions[img_date] = {}
-                        stage = 1
-                        for time in reversed(parsed):
-                            (min,sec) = time.split(":")
-                            min = int(min)
-                            sec = float(sec[:2])
-                            if (60*min) + sec > 30:
-                                times = {}
-                                times['min'] = min
-                                times['sec'] = round(sec)
-                                sessions[img_date][stage] = times
-                                stage += 1
-                        # print(sessions)
+                    sessions[img_date] = {}
+                    sessions[img_date]['rounds'] = {}
 
-                try:
-                    with open('sessions.json') as f:
-                        in_data = json.load(f)
-                        print("previous in_data:",in_data)
-                        in_data.update(sessions)
-                        print("new in_data",in_data)
-                        with open('sessions.json',"w") as f:
-                            json.dump(in_data,f, indent=4)
-                        sessions = {}
-                except Exception:
-                    print("JSON file empty. Adding new data.")
+                    stage = 1
+                    for time in reversed(parsed):
+                        (min,sec) = time.split(":")
+                        min = int(min)
+                        sec = float(sec[:2])
+                        if (60*min) + sec > 30:
+                            times = {}
+                            times['min'] = min
+                            times['sec'] = round(sec)
+                            sessions[img_date]['rounds'][stage] = times
+                            sessions[img_date]['filename'] = image
+                            stage += 1
+
+            if completed_filenames:
+                with open('sessions.json') as f:
+                    in_data = json.load(f)
+                    in_data.update(sessions)
                     with open('sessions.json',"w") as f:
-                        json.dump(sessions,f, indent=4)
-                    sessions = {}
+                        json.dump(in_data,f, indent=4)
+            else:
+                print("JSON file empty. Adding new data.")
+                with open('sessions.json',"w") as f:
+                    json.dump(sessions,f, indent=4)

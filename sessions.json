@@ -1,40 +1,49 @@
 {
     "Jan 15": {
-        "1": {
-            "min": 2,
-            "sec": 4
+        "rounds": {
+            "1": {
+                "min": 2,
+                "sec": 4
+            },
+            "2": {
+                "min": 2,
+                "sec": 4
+            }
         },
-        "2": {
-            "min": 2,
-            "sec": 4
-        }
+        "filename": "Photo Jan 15, 10 37 51 AM.png"
     },
     "Jan 16": {
-        "1": {
-            "min": 2,
-            "sec": 2
+        "rounds": {
+            "1": {
+                "min": 2,
+                "sec": 2
+            },
+            "2": {
+                "min": 2,
+                "sec": 41
+            },
+            "3": {
+                "min": 3,
+                "sec": 11
+            }
         },
-        "2": {
-            "min": 2,
-            "sec": 41
-        },
-        "3": {
-            "min": 3,
-            "sec": 11
-        }
+        "filename": "Photo Jan 16, 11 00 54 AM.png"
     },
     "Jan 17": {
-        "1": {
-            "min": 2,
-            "sec": 2
+        "rounds": {
+            "1": {
+                "min": 2,
+                "sec": 2
+            },
+            "2": {
+                "min": 2,
+                "sec": 41
+            },
+            "3": {
+                "min": 6,
+                "sec": 1
+            }
         },
-        "2": {
-            "min": 2,
-            "sec": 41
-        },
-        "3": {
-            "min": 6,
-            "sec": 1
-        }
+        "filename": "Photo Jan 17, 10s 40 41 AM.png"
     }
 }
