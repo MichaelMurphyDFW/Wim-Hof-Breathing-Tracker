@@ -23,15 +23,15 @@ sessions = {}
 
 while True:
     sleep(5)
-    print("Pausing for 5 seconds...")
+    # print("Pausing for 5 seconds...")
 
     # with open ("projects/wim_hof/processed_images.txt", "r") as processed:
     with open ("processed_images.txt", "r") as processed:
 
         processed_files = processed.read().split("\n")
         num_recorded_files = len(processed_files)-1
-        print("num recorded files:",num_recorded_files)
-        print("files in folder:",len(os.listdir(original_dir)))
+        # print("num recorded files:",num_recorded_files)
+        # print("files ins folder:",len(os.listdir(original_dir)))
 
         if num_recorded_files != len(os.listdir(original_dir)):
 
@@ -43,29 +43,39 @@ while True:
                         cv_image = Image.open(f"{original_dir}/{image}")
                         (w,h) = cv_image.size
                         cropped = cv_image.crop((900,1450,w,2012))
-                        cropped.show()
+                        # cropped.show()
 
                         processed.write(f"{image}\n")
 
-                        times = ()
                         img_date = image.split(",")[0][6:]
-                        # print(img_date)
                         text = pytesseract.image_to_string(cropped,lang="SF-numsonly")
 
                         parsed = [text for text in text.split("\n") if ":" in text]
-                        # print(text)
+                        sessions[img_date] = {}
+                        stage = 1
                         for time in reversed(parsed):
                             (min,sec) = time.split(":")
                             min = int(min)
                             sec = float(sec[:2])
                             if (60*min) + sec > 30:
-                                times.append((min,round(sec)))
-                        times.reverse()
-                        session = {k+1:v for k,v in enumerate(times)}
-                        # to_json = {img_date:session}
-                        sessions[img_date] = session
-                        print(sessions)
-                        print("to_json",sessions)
-                        # with open('projects/wim_hof/sessions.json', 'w') as f:
-                        with open('sessions.json', 'w') as f:
-                            json.dump(sessions,f, indent=4)
+                                times = {}
+                                times['min'] = min
+                                times['sec'] = round(sec)
+                                sessions[img_date][stage] = times
+                                stage += 1
+                        # print(sessions)
+
+                try:
+                    with open('sessions.json') as f:
+                        in_data = json.load(f)
+                        print("previous in_data:",in_data)
+                        in_data.update(sessions)
+                        print("new in_data",in_data)
+                        with open('sessions.json',"w") as f:
+                            json.dump(in_data,f, indent=4)
+                        sessions = {}
+                except Exception:
+                    print("JSON file empty. Adding new data.")
+                    with open('sessions.json',"w") as f:
+                        json.dump(sessions,f, indent=4)
+                    sessions = {}
