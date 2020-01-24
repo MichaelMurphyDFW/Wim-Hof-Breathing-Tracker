@@ -12,16 +12,12 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tess
 
 # Desktop
 original_dir = os.path.abspath(f"{os.getcwd()}../../../../Wim Hof")
-# project_dir = os.path.abspath(f"{os.getcwd()})
 
-print(os.path.abspath("projects/wim_hof/processed_images.txt"))
-
-print(os.getcwd())
-print(original_dir)
+print("Script path:",os.getcwd())
+print("Images path:",original_dir)
 
 while True:
     sessions = {}
-    sleep(5)
 
     with open ("sessions.json") as f:
         try:
@@ -37,13 +33,14 @@ while True:
         if len(completed_filenames) < len(os.listdir(original_dir)):
 
             for image in os.listdir(original_dir):
-                if (image.endswith(".png") or image.endswith(".PNG")) and image not in completed_filenames:
+                if (image.endswith(".png") or image.endswith(".PNG") or image.endswith(".jpeg")) and image not in completed_filenames:
                     cv_image = Image.open(f"{original_dir}/{image}")
                     (w,h) = cv_image.size
                     cropped = cv_image.crop((900,1450,w,2012))
-                    # cropped.show()
+                    cropped.show()
 
-                    img_date = image.split(",")[0][6:]
+                    img_date = " ".join(image.split(" ")[1:3])[:-1]
+                    print("Processing session:",img_date)
 
                     text = pytesseract.image_to_string(cropped,lang="SF-numsonly")
                     parsed = [text for text in text.split("\n") if ":" in text]
@@ -64,8 +61,8 @@ while True:
                             sessions[img_date]['filename'] = image
                             stage += 1
 
-            if completed_filenames:
-                with open('sessions.json') as f:
+            if len(completed_filenames) > 0:
+                with open('sessions.json', "r+") as f:
                     in_data = json.load(f)
                     in_data.update(sessions)
                     with open('sessions.json',"w") as f:
@@ -74,3 +71,5 @@ while True:
                 print("JSON file empty. Adding new data.")
                 with open('sessions.json',"w") as f:
                     json.dump(sessions,f, indent=4)
+
+    sleep(5)

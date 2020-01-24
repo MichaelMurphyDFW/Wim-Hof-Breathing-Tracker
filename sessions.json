@@ -1,5 +1,5 @@
 {
-    "Jan 15": {
+    "Jan 20": {
         "rounds": {
             "1": {
                 "min": 2,
@@ -7,10 +7,95 @@
             },
             "2": {
                 "min": 2,
-                "sec": 4
+                "sec": 36
             }
         },
-        "filename": "Photo Jan 15, 10 37 51 AM.png"
+        "filename": "File Jan 20, 9 33 04 AM.jpeg"
+    },
+    "Dec 28": {
+        "rounds": {
+            "1": {
+                "min": 1,
+                "sec": 50
+            },
+            "2": {
+                "min": 2,
+                "sec": 16
+            },
+            "3": {
+                "min": 2,
+                "sec": 31
+            }
+        },
+        "filename": "Photo Dec 28, 12 03 14 PM.png"
+    },
+    "Dec 29": {
+        "rounds": {
+            "1": {
+                "min": 2,
+                "sec": 0
+            },
+            "2": {
+                "min": 2,
+                "sec": 29
+            },
+            "3": {
+                "min": 2,
+                "sec": 51
+            }
+        },
+        "filename": "Photo Dec 29, 11 17 57 AM.png"
+    },
+    "Jan 05": {
+        "rounds": {
+            "1": {
+                "min": 1,
+                "sec": 50
+            },
+            "2": {
+                "min": 2,
+                "sec": 8
+            },
+            "3": {
+                "min": 2,
+                "sec": 17
+            }
+        },
+        "filename": "Photo Jan 05, 10 04 36 AM.png"
+    },
+    "Jan 13": {
+        "rounds": {
+            "1": {
+                "min": 2,
+                "sec": 10
+            },
+            "2": {
+                "min": 2,
+                "sec": 33
+            },
+            "3": {
+                "min": 2,
+                "sec": 37
+            }
+        },
+        "filename": "Photo Jan 13, 3 18 59 PM.png"
+    },
+    "Jan 15": {
+        "rounds": {
+            "1": {
+                "min": 1,
+                "sec": 32
+            },
+            "2": {
+                "min": 2,
+                "sec": 0
+            },
+            "3": {
+                "min": 2,
+                "sec": 29
+            }
+        },
+        "filename": "Photo Jan 15, 8 59 30 AM.png"
     },
     "Jan 16": {
         "rounds": {
@@ -44,6 +129,53 @@
                 "sec": 1
             }
         },
-        "filename": "Photo Jan 17, 10s 40 41 AM.png"
+        "filename": "Photo Jan 17, 10 40 41 AM.png"
+    },
+    "Jan 18": {
+        "rounds": {
+            "1": {
+                "min": 2,
+                "sec": 12
+            },
+            "2": {
+                "min": 2,
+                "sec": 40
+            }
+        },
+        "filename": "Photo Jan 18, 3 39 11 PM.png"
+    },
+    "Jan 19": {
+        "rounds": {
+            "1": {
+                "min": 1,
+                "sec": 55
+            },
+            "2": {
+                "min": 2,
+                "sec": 13
+            },
+            "3": {
+                "min": 0,
+                "sec": 49
+            },
+            "4": {
+                "min": 2,
+                "sec": 32
+            }
+        },
+        "filename": "Photo Jan 19, 5 51 29 PM.png"
+    },
+    "Jan 21": {
+        "rounds": {
+            "1": {
+                "min": 2,
+                "sec": 4
+            },
+            "2": {
+                "min": 2,
+                "sec": 34
+            }
+        },
+        "filename": "File Jan 21, 11 17 09 AM.jpeg"
     }
 }
